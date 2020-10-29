@@ -1,25 +1,49 @@
 import Diciona.Dicionario;
+import Diciona.Termo;
 import Dados.*;
 
 public class Executar {
     public static void main(String[] args) {
         LDEC<Dicionario> listinha = new LDEC<Dicionario>();
-        Dicionario termo = new Dicionario("Batata");
-        listinha.inserir(termo);
-        termo = new Dicionario("Arthur");
-        listinha.inserir(termo);
-        termo = new Dicionario("Atata");
-        listinha.inserir(termo);
-        termo = new Dicionario("Darco");
-        listinha.inserir(termo);
-        termo = new Dicionario("Carco");
-        listinha.inserir(termo);
-        termo = new Dicionario("Zenaide");
-        listinha.inserir(termo);
-        termo = new Dicionario("AA");
-        listinha.inserir(termo);
-        listinha.exibirTodos();
-
+        Termo termo = new Termo("Batata");
+        String termin = termo.getTermo().toLowerCase();
+        char letra = termin.charAt(0);
+        Dicionario indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        termo = new Termo("Bola");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        termo = new Termo("Baaaaaa");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);termo = new Termo("AAr");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);listinha.inserir(indice, termo);termo = new Termo("Arthur");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        listinha.inserir(indice, termo);termo = new Termo("Zebra");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        listinha.inserir(indice, termo);termo = new Termo("Canoa");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        listinha.inserir(indice, termo);termo = new Termo("Marcos");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        System.out.println(listinha.exibirTodos());
     }
     
 }

@@ -1,28 +1,26 @@
 package Diciona;
+import Dados.*;
 public class Dicionario implements Comparable <Dicionario> {
-    private String termo;
-    private String definicao;
-
-    public Dicionario (String termo) {
-        this.termo = termo;
+    private char indice;
+    LDEC<Termo> termos = new LDEC<Termo>();
+    public Dicionario(char indice){
+        this.indice = indice;
     }
-    public void setTermo (String termo) {
-        this.termo = termo;
+    public char getIndice(){
+        return this.indice;
     }
-    public String getTermo () {
-        return this.termo;
+    public LDEC<Termo> getTermos() {
+        return this.termos;
     }
-    public void setDefinicao (String definicao) {
-        this.definicao = definicao;
-    }
-    public String getDefinicao () {
-        return this.definicao;
-    }
-    public String toString() {
-        return "Termo: " + this.termo + "\n Definicao: " + this.definicao;
+    public String toString () {
+        return this.indice + ": \n" + this.termos.exibirTodos();
     }
     @Override
-     public int compareTo(Dicionario d){
-         return this.termo.compareTo(d.getTermo());
-     }
+     public int compareTo(Dicionario i){
+        if (this.indice == i.getIndice()) {
+            return 0;
+        } else if (this.indice > i.getIndice()){
+            return 1;
+        } else return -1;
+    }
 }
