@@ -19,16 +19,20 @@ public class Executar {
         termin = termo.getTermo().toLowerCase();
         letra = termin.charAt(0);
         indice = new Dicionario(letra);
-        listinha.inserir(indice, termo);termo = new Termo("AAr");
-        termin = termo.getTermo().toLowerCase();
-        letra = termin.charAt(0);
-        indice = new Dicionario(letra);
-        listinha.inserir(indice, termo);listinha.inserir(indice, termo);termo = new Termo("Arthur");
+        listinha.inserir(indice, termo);
+        termo = new Termo("AAr");
         termin = termo.getTermo().toLowerCase();
         letra = termin.charAt(0);
         indice = new Dicionario(letra);
         listinha.inserir(indice, termo);
-        listinha.inserir(indice, termo);termo = new Termo("Zebra");
+        listinha.inserir(indice, termo);
+        termo = new Termo("Arthur");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        listinha.inserir(indice, termo);
+        termo = new Termo("Zebra");
         termin = termo.getTermo().toLowerCase();
         letra = termin.charAt(0);
         indice = new Dicionario(letra);
@@ -38,11 +42,20 @@ public class Executar {
         letra = termin.charAt(0);
         indice = new Dicionario(letra);
         listinha.inserir(indice, termo);
-        listinha.inserir(indice, termo);termo = new Termo("Marcos");
+        listinha.inserir(indice, termo);
+        termo = new Termo("Marcos");
         termin = termo.getTermo().toLowerCase();
         letra = termin.charAt(0);
         indice = new Dicionario(letra);
         listinha.inserir(indice, termo);
+        termo = new Termo("Matheus");
+        termin = termo.getTermo().toLowerCase();
+        letra = termin.charAt(0);
+        indice = new Dicionario(letra);
+        listinha.inserir(indice, termo);
+        listinha.exibirPorIndice(indice);
+        listinha.exibirDefinição(termo);
+        //listinha.remover(indice, termo);
         System.out.println(listinha.exibirTodos());
     }
     

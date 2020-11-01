@@ -25,6 +25,18 @@ public class LDEC <T extends Comparable <T>>{
         }
         return null;
     }     
+    public LDENode<T> buscaTermo(Termo termo) { 
+        LDENode<T> aux = this.inicio;
+        while (aux != null) {
+            if (aux.getInfo().equals(termo)) {
+                return aux;
+            }if (aux == this.fim) {
+                break;
+            }
+            aux = aux.getProx();
+        }
+        return null;
+    }     
     public String exibirTodos () {
         LDENode<T> aux;
         aux = this.inicio;
@@ -36,7 +48,6 @@ public class LDEC <T extends Comparable <T>>{
         return soma;
     }
     public void inserir (T indice, Termo termo) {
-        LDENode<Termo> novo = new LDENode<Termo> (termo);
         LDENode<T> aux,procurar;
         if (isEmpty()) {
             LDENode<T> novoIndice = new LDENode<T>(indice);
@@ -49,16 +60,13 @@ public class LDEC <T extends Comparable <T>>{
             LDEC<Termo> termosAtuais = ((Dicionario)novoIndice.getInfo()).getTermos();
             termosAtuais.inserirTermo((Termo)termo);
         } else {
-            System.out.println("Fazendo busca");
             procurar = this.buscaSimples(indice);
-            System.out.println("busca completa");
             if(procurar != null) {
                 LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
                  termosAtuais.inserirTermo((Termo)termo);
              } else {
                 LDENode<T> novoIndice = new LDENode<T>(indice);
                 if (indice.compareTo(this.inicio.getInfo()) < 0) {
-                    System.out.println("Primeiro if");
                     novoIndice.setProx(this.inicio);
                     this.inicio.setAnt(novoIndice);
                     this.inicio = novoIndice;
@@ -68,7 +76,6 @@ public class LDEC <T extends Comparable <T>>{
                 aux = this.inicio;
                 while (aux != null) {
                     if (indice.compareTo(aux.getInfo()) < 0) {
-                        System.out.println("outra coisa");
                         novoIndice.setProx(aux);
                         novoIndice.setAnt(aux.getAnt());
                         aux.getAnt().setProx(novoIndice);
@@ -79,7 +86,6 @@ public class LDEC <T extends Comparable <T>>{
                      }
   
                     if (aux == this.fim) {
-                        System.out.println("Esse é o if de baixo");
                         novoIndice.setAnt(this.fim);
                         this.fim.setProx(novoIndice);
                         this.fim = novoIndice;
@@ -98,21 +104,17 @@ public class LDEC <T extends Comparable <T>>{
         LDENode<T> novo = new LDENode<T> (obj);
         LDENode<T> aux,procurar;
         if (isEmpty()) {
-            System.out.println("Vazio, inseriu");
             this.inicio = novo;
             this.fim = novo;
             this.qtd = 1;
             this.inicio.setAnt(this.fim);
             this.fim.setProx(this.inicio);
         } else {
-            System.out.println("Fazendo busca");
             procurar = this.buscaSimples(obj);
-            System.out.println("busca completa");
             if(procurar != null) {
                 System.out.println("Objeto Repetido!");
             } else {
                 if (obj.compareTo(this.inicio.getInfo()) < 0) {
-                    System.out.println("Primeiro if");
                     novo.setProx(this.inicio);
                     this.inicio.setAnt(novo);
                     this.inicio = novo;
@@ -122,7 +124,6 @@ public class LDEC <T extends Comparable <T>>{
                 aux = this.inicio;
                 while (aux != null) {
                     if (obj.compareTo(aux.getInfo()) < 0) {
-                        System.out.println("outra coisa");
                         novo.setProx(aux);
                         novo.setAnt(aux.getAnt());
                         aux.getAnt().setProx(novo);
@@ -133,7 +134,6 @@ public class LDEC <T extends Comparable <T>>{
                      }
   
                     if (aux == this.fim) {
-                        System.out.println("Esse é o if de baixo");
                         novo.setAnt(this.fim);
                         this.fim.setProx(novo);
                         this.fim = novo;
@@ -145,5 +145,43 @@ public class LDEC <T extends Comparable <T>>{
                 }
             }
         }
+    }
+    public void remover(T indice, Termo termo) {
+        LDENode<T> novoIndice, procurar, aux;
+        novoIndice = this.buscaSimples(indice);
+        procurar = this.buscaSimples(indice);
+        if(isEmpty() == true) {
+            System.out.println("Não existe Indice para esse termo");
+        } else if (procurar != null) {
+            LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
+            termosAtuais.buscaSimples(termo);
+            aux = this.inicio;
+            while(aux != null) {
+                if (indice.compareTo(aux.getInfo()) == 0){
+                    System.out.println("Esse " +aux.getInfo());
+                }
+                aux = aux.getProx();
+            }
+        }
+    }
+    public void exibirPorIndice (T indice) {
+        LDENode<T> novoIndice, procurar;
+        procurar = this.buscaSimples(indice);
+        if (isEmpty()) {
+            System.out.println("Não existe Indice com essa letra");
+        } else if(procurar != null) {
+            LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
+            System.out.println("Termos com esse indice: " +termosAtuais.exibirTodos());
+        }
+    }
+    public void exibirDefinição (Termo termo) {
+        LDENode<T> novoIndice, procurar;
+        procurar = this.buscaTermo(termo);
+        if (isEmpty()){
+            System.out.println("Não cadastrado na lista");
+        } else if (procurar != null) {
+            LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
+            System.out.println("Definição do termo: " +termosAtuais);
+            }
     }
 }
