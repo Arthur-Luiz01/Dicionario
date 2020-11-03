@@ -1,10 +1,11 @@
 package Dados;
 import Diciona.*;
+import java.util.*;
 public class LDEC <T extends Comparable <T>>{
     private LDENode<T> inicio;
     private LDENode<T> fim;
     private int qtd;
-
+    Scanner in = new Scanner (System.in);
     public boolean isEmpty () {
         if (this.inicio == null) {
             return true;
@@ -25,18 +26,6 @@ public class LDEC <T extends Comparable <T>>{
         }
         return null;
     }     
-    public LDENode<T> buscaTermo(Termo termo) { 
-        LDENode<T> aux = this.inicio;
-        while (aux != null) {
-            if (aux.getInfo().equals(termo)) {
-                return aux;
-            }if (aux == this.fim) {
-                break;
-            }
-            aux = aux.getProx();
-        }
-        return null;
-    }     
     public String exibirTodos () {
         LDENode<T> aux;
         aux = this.inicio;
@@ -47,11 +36,51 @@ public class LDEC <T extends Comparable <T>>{
         }
         return soma;
     }
+    public void Definicao(T termo) {
+        LDENode <T> aux;
+        aux = buscaSimples(termo);
+        if (aux == null) {
+            System.out.println("Objeto não encontrado");
+        }
+        else System.out.println(aux.getInfo());
+    }
+    public T buscaObjeto(T obj) {
+        LDENode<T> aux = this.inicio;
+        while (aux != null) {
+            if (aux.getInfo().compareTo(obj) == 0) {
+                return aux.getInfo();
+            }
+            aux = aux.getProx();
+        }
+        return null;
+    }
+    public boolean removerr (Termo obj) {
+        if (this.inicio == null) {
+            return false;
+        }
+        if (this.inicio.getInfo().equals(obj)){
+            this.inicio = this.inicio.getProx();
+            if(this.inicio != null){
+                this.inicio.setAnt(null);
+            }
+            return true;
+        }
+        LDENode<T> aux = this.inicio;
+        while(aux != null && !aux.getInfo().equals(obj)){
+            aux = aux.getProx();
+        }
+        if (aux == null) return false;
+        aux.setAnt(aux.getProx());
+        if(aux.getProx() != null) {
+            aux.setProx(aux.getAnt());
+        }
+        qtd--;
+        return true;
+    }
     public void inserir (T indice, Termo termo) {
         LDENode<T> aux,procurar;
         if (isEmpty()) {
             LDENode<T> novoIndice = new LDENode<T>(indice);
-            System.out.println("Vazio, inseriu");
             this.inicio = novoIndice;
             this.fim = novoIndice;
             this.qtd = 1;
@@ -165,23 +194,37 @@ public class LDEC <T extends Comparable <T>>{
         }
     }
     public void exibirPorIndice (T indice) {
-        LDENode<T> novoIndice, procurar;
+        LDENode<T> procurar;
         procurar = this.buscaSimples(indice);
-        if (isEmpty()) {
+        if (procurar == null) {
             System.out.println("Não existe Indice com essa letra");
         } else if(procurar != null) {
             LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
-            System.out.println("Termos com esse indice: " +termosAtuais.exibirTodos());
+            System.out.println("Termos com esse indice:\n" +termosAtuais.exibirTodos());
         }
     }
-    public void exibirDefinição (Termo termo) {
-        LDENode<T> novoIndice, procurar;
-        procurar = this.buscaTermo(termo);
-        if (isEmpty()){
-            System.out.println("Não cadastrado na lista");
+    public void exibirDefinição (T indice, Termo termo) {
+        LDENode<T> procurar;
+        procurar = this.buscaSimples(indice);
+        if (procurar == null) {
+            System.out.println("Não existe esse termo");
         } else if (procurar != null) {
             LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
-            System.out.println("Definição do termo: " +termosAtuais);
-            }
+            termosAtuais.Definicao(termo);
+        }
+    }
+    public void alterarDefinição (T indice, Termo termo) {
+        LDENode<T> procurar;
+        procurar = this.buscaSimples(indice);
+        if(procurar == null){
+            System.out.println("Não existe esse termo");
+        } else if (procurar != null) {
+            LDEC<Termo> termosAtuais = ((Dicionario)procurar.getInfo()).getTermos();
+            System.out.println("Informe a nova descrição");
+            String aux = in.nextLine();
+            termo.setDefinicao(aux);
+            termosAtuais.Definicao(termo);
+        }
     }
 }
+

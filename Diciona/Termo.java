@@ -3,8 +3,9 @@ public class Termo implements Comparable <Termo> {
     private String termo;
     private String definicao;
 
-    public Termo (String termo) {
+    public Termo (String termo, String definicao) {
         this.termo = termo;
+        this.definicao = definicao;
     }
     public void setTermo (String termo) {
         this.termo = termo;
